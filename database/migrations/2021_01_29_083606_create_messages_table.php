@@ -18,8 +18,6 @@ class CreateMessagesTable extends Migration
             $table->timestamps();
             $table->text('message');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->tinyInteger('status')->default(1);
         });
     }
 

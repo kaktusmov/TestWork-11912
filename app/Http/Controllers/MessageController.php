@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Requests\MessageRequest;
 use App\Services\MessageService;
-use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
@@ -21,7 +20,7 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('message.index',[
             'messages' => $this->service->getAll()
@@ -35,6 +34,8 @@ class MessageController extends Controller
      */
     public function create()
     {
+        if (!Auth()->check())
+            return redirect('/login');
         return view('message.create');
     }
 
@@ -58,7 +59,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        //
+        return view('message.show', ['message'=>$message]);
     }
 
     /**
@@ -69,7 +70,7 @@ class MessageController extends Controller
      */
     public function edit(Message $message)
     {
-        //
+        return view('message.edit', ['message'=>$message]);
     }
 
     /**
@@ -79,9 +80,10 @@ class MessageController extends Controller
      * @param  \App\Models\Message  $message
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(MessageRequest $request, Message $message)
     {
-        //
+        $message->fill($request->validated())->save();
+        return redirect('/messages');
     }
 
     /**
@@ -92,6 +94,7 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        $message->delete();
+        return redirect('/messages');
     }
 }

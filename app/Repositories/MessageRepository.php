@@ -20,6 +20,6 @@ class MessageRepository {
 
     public function all()
     {
-        return $this->model->where(['status'=>1])->get();
+        return $this->model->get();
     }
 }
