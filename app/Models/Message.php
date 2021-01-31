@@ -12,4 +12,9 @@ class Message extends Model
     protected $fillable = [
         'message', 'user_id', 'parent_id', 'status'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

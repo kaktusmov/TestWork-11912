@@ -17,4 +17,9 @@ class MessageRepository {
     {
         return $this->model->fill($data)->save();
     }
+
+    public function all()
+    {
+        return $this->model->where(['status'=>1])->get();
+    }
 }

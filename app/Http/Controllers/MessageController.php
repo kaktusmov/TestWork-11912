@@ -23,8 +23,9 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->session()->get('errors'));
-        //
+        return view('message.index',[
+            'messages' => $this->service->getAll()
+        ]);
     }
 
     /**
@@ -34,7 +35,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        //
+        return view('message.create');
     }
 
     /**
